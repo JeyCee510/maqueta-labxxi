@@ -36,9 +36,27 @@
 
   /* ---------- NAV ---------- */
   nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:14px 4vw;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(0,0,0,.06)}
-  nav .logo img{height:44px}
-  nav ul{display:flex;gap:26px;list-style:none;font-size:.92rem;font-weight:500}
-  nav ul a:hover{color:var(--teal)}
+  nav .logo img{height:72px}
+  nav .nav-right{display:flex;align-items:center;gap:14px}
+  .menu-btn{width:54px;height:54px;border-radius:50%;background:var(--teal);color:#fff;border:none;cursor:pointer;font-size:2rem;line-height:1;display:flex;align-items:center;justify-content:center;transition:transform .3s ease, background .2s ease;z-index:70}
+  .menu-btn:hover{background:var(--teal-dark)}
+  .menu-btn span{display:block;transition:transform .3s ease;font-weight:300;margin-top:-4px}
+  body.menu-open .menu-btn{background:var(--yellow);color:var(--ink)}
+  body.menu-open .menu-btn span{transform:rotate(45deg)}
+  body.menu-open nav{z-index:70;background:transparent;box-shadow:none;backdrop-filter:none}
+  body.menu-open nav .logo,body.menu-open nav .btn.yellow,body.menu-open nav .lang{visibility:hidden}
+  .menu-overlay{position:fixed;inset:0;background:var(--teal);z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;opacity:0;visibility:hidden;transition:opacity .35s ease, visibility .35s}
+  body.menu-open .menu-overlay{opacity:1;visibility:visible}
+  .menu-overlay a{font-family:'Baloo 2';font-weight:700;font-size:clamp(1.8rem,5vw,3rem);color:#fff;opacity:0;transform:translateY(20px);transition:opacity .4s ease, transform .4s ease, color .2s}
+  .menu-overlay a:hover{color:var(--yellow)}
+  body.menu-open .menu-overlay a{opacity:1;transform:none}
+  .menu-overlay a:nth-child(2){transition-delay:.05s}.menu-overlay a:nth-child(3){transition-delay:.1s}.menu-overlay a:nth-child(4){transition-delay:.15s}.menu-overlay a:nth-child(5){transition-delay:.2s}.menu-overlay a:nth-child(6){transition-delay:.25s}
+  .menu-overlay .m-logo{height:90px;margin-bottom:26px;opacity:0;transition:opacity .4s ease}
+  body.menu-open .menu-overlay .m-logo{opacity:1}
+  /* flecha amarilla que recorre la página */
+  .side-arrow{position:fixed;right:26px;top:0;z-index:40;pointer-events:none;transition:opacity .3s}
+  .side-arrow svg{width:46px;height:66px}
+  @media(max-width:900px){nav .logo img{height:56px}.side-arrow{display:none}}
   .btn{display:inline-block;background:var(--teal);color:#fff;font-weight:600;padding:12px 26px;border-radius:999px;transition:transform .15s ease, background .15s ease;border:none;cursor:pointer;font-family:inherit;font-size:1rem}
   .btn:hover{background:var(--teal-dark);transform:translateY(-2px)}
   .btn.ghost{background:transparent;color:var(--teal);box-shadow:inset 0 0 0 2px var(--teal)}
@@ -54,14 +72,16 @@
   .hero-media{position:absolute;inset:0;z-index:0}
   .hero-media video{width:100%;height:100%;object-fit:cover}
   .hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg, rgba(255,255,255,.96) 0%, rgba(255,255,255,.88) 34%, rgba(255,255,255,.35) 62%, rgba(255,255,255,.05) 100%)}
+  .hero-tint{position:absolute;inset:0;background:var(--teal);opacity:0;z-index:0;pointer-events:none}
   .hero-content{position:relative;z-index:1;max-width:640px}
   .hero h1{font-size:clamp(2.6rem,6vw,4.6rem);line-height:1.02;color:var(--ink)}
   .hero h1 .teal{color:var(--teal)}
   .hero p{margin:26px 0 34px;font-size:1.15rem;font-weight:400;max-width:520px;line-height:1.7}
   .hero .cta-row{display:flex;gap:14px;flex-wrap:wrap}
   .hero .bubble{display:inline-block;background:var(--yellow);font-family:'Baloo 2';font-weight:700;font-size:1.05rem;padding:8px 20px;border-radius:24px 24px 24px 4px;transform:rotate(-3deg);box-shadow:0 6px 18px rgba(0,0,0,.10);margin-bottom:22px}
-  .scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-size:1.8rem;color:var(--teal);animation:bob 1.6s infinite;z-index:1}
-  @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,10px)}}
+  .scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);animation:bob 1.6s infinite;z-index:1}
+  .scroll-hint svg{width:56px;height:80px}
+  @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,14px)}}
   @media(max-width:900px){
     header.hero{padding-top:120px}
     .hero-media::after{background:linear-gradient(180deg, rgba(255,255,255,.94) 0%, rgba(255,255,255,.82) 55%, rgba(255,255,255,.45) 100%)}
@@ -190,18 +210,25 @@
 
 <nav>
   <a class="logo" href="#inicio"><img src="assets/logo.png" alt="LAB-XXI"></a>
-  <ul>
-    <li><a href="#somos">Quiénes somos</a></li>
-    <li><a href="#impacto">Impacto</a></li>
-    <li><a href="#proyectos">Proyectos</a></li>
-    <li><a href="#aliados">Aliados</a></li>
-    <li><a href="#contacto">Contacto</a></li>
-  </ul>
-  <div>
+  <div class="nav-right">
     <a class="btn yellow" href="#contacto">Súmate</a>
     <span class="lang">ES | EN</span>
+    <button class="menu-btn" aria-label="Menú" onclick="document.body.classList.toggle('menu-open')"><span>+</span></button>
   </div>
 </nav>
+
+<div class="menu-overlay" onclick="if(event.target.tagName==='A'||event.target===this)document.body.classList.remove('menu-open')">
+  <img class="m-logo" src="assets/logo.png" alt="">
+  <a href="#somos">Quiénes somos</a>
+  <a href="#impacto">Impacto</a>
+  <a href="#proyectos">Proyectos</a>
+  <a href="#aliados">Aliados</a>
+  <a href="#contacto">Contacto</a>
+</div>
+
+<div class="side-arrow" id="sideArrow">
+  <svg viewBox="0 0 46 66" fill="none"><path d="M23 4 V50 M8 38 L23 56 L38 38" stroke="#F2E927" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</div>
 
 <header class="hero" id="inicio">
   <div class="hero-media">
@@ -209,6 +236,7 @@
       <source src="assets/hero-manos.mp4" type="video/mp4">
     </video>
   </div>
+  <div class="hero-tint" id="heroTint"></div>
   <div class="hero-content">
     <span class="bubble">¡Laboratorio de innovación social!</span>
     <h1>Hacemos que pasen <span class="teal">cosas buenas</span></h1>
@@ -218,7 +246,9 @@
       <a class="btn ghost" href="#contacto">Conecta con nosotros</a>
     </div>
   </div>
-  <div class="scroll-hint">↓</div>
+  <div class="scroll-hint">
+    <svg viewBox="0 0 46 66" fill="none"><path d="M23 4 V50 M8 38 L23 56 L38 38" stroke="#F2E927" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
 </header>
 
 <section class="somos" id="somos">
@@ -475,6 +505,21 @@
     requestAnimationFrame(tick);
   }), { threshold: .6 });
   document.querySelectorAll('[data-count]').forEach(el => cio.observe(el));
+
+  // fundido del hero a color sólido + flecha que recorre la página
+  const tint = document.getElementById('heroTint');
+  const arrow = document.getElementById('sideArrow');
+  const heroEl = document.querySelector('header.hero');
+  const onScroll = () => {
+    const y = window.scrollY, hh = heroEl.offsetHeight;
+    tint.style.opacity = Math.min(1, y / (hh * 0.85)) * 0.96;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    const p = max > 0 ? y / max : 0;
+    arrow.style.top = (8 + p * (innerHeight - 120)) + 'px';
+    arrow.style.opacity = (y < hh * 0.4 || p > 0.96) ? 0 : 1;
+  };
+  addEventListener('scroll', onScroll, {passive: true});
+  onScroll();
 </script>
 </body>
 </html>
