@@ -43,16 +43,18 @@
   .menu-btn span{display:block;transition:transform .3s ease;font-weight:300;margin-top:-4px}
   body.menu-open .menu-btn{background:var(--yellow);color:var(--ink)}
   body.menu-open .menu-btn span{transform:rotate(45deg)}
-  body.menu-open nav{z-index:70;background:transparent;box-shadow:none;backdrop-filter:none}
-  body.menu-open nav .logo,body.menu-open nav .btn.yellow,body.menu-open nav .lang{visibility:hidden}
-  .menu-overlay{position:fixed;inset:0;background:var(--teal);z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;opacity:0;visibility:hidden;transition:opacity .35s ease, visibility .35s}
-  body.menu-open .menu-overlay{opacity:1;visibility:visible}
-  .menu-overlay a{font-family:'Baloo 2';font-weight:700;font-size:clamp(1.8rem,5vw,3rem);color:#fff;opacity:0;transform:translateY(20px);transition:opacity .4s ease, transform .4s ease, color .2s}
+  body.menu-open nav{z-index:70}
+  .menu-backdrop{position:fixed;inset:0;background:rgba(58,58,58,.28);backdrop-filter:blur(2px);z-index:55;opacity:0;visibility:hidden;transition:opacity .3s ease, visibility .3s}
+  body.menu-open .menu-backdrop{opacity:1;visibility:visible}
+  .menu-overlay{position:fixed;top:106px;right:4vw;z-index:72;background:var(--teal);border-radius:26px 6px 26px 26px;padding:26px 44px 30px 34px;display:flex;flex-direction:column;align-items:flex-start;gap:4px;box-shadow:0 30px 70px rgba(0,0,0,.30);opacity:0;visibility:hidden;transform:translateY(-16px) scale(.94);transform-origin:top right;transition:opacity .3s ease, transform .3s ease, visibility .3s}
+  body.menu-open .menu-overlay{opacity:1;visibility:visible;transform:none}
+  .menu-overlay a{font-family:'Baloo 2';font-weight:700;font-size:clamp(1.25rem,2.4vw,1.7rem);color:#fff;opacity:0;transform:translateY(12px);transition:opacity .35s ease, transform .35s ease, color .2s}
   .menu-overlay a:hover{color:var(--yellow)}
   body.menu-open .menu-overlay a{opacity:1;transform:none}
-  .menu-overlay a:nth-child(2){transition-delay:.05s}.menu-overlay a:nth-child(3){transition-delay:.1s}.menu-overlay a:nth-child(4){transition-delay:.15s}.menu-overlay a:nth-child(5){transition-delay:.2s}.menu-overlay a:nth-child(6){transition-delay:.25s}
-  .menu-overlay .m-logo{height:90px;margin-bottom:26px;opacity:0;transition:opacity .4s ease}
+  .menu-overlay a:nth-child(2){transition-delay:.04s}.menu-overlay a:nth-child(3){transition-delay:.08s}.menu-overlay a:nth-child(4){transition-delay:.12s}.menu-overlay a:nth-child(5){transition-delay:.16s}.menu-overlay a:nth-child(6){transition-delay:.2s}
+  .menu-overlay .m-logo{height:52px;margin-bottom:12px;opacity:0;transition:opacity .35s ease;filter:brightness(0) invert(1)}
   body.menu-open .menu-overlay .m-logo{opacity:1}
+  @media(max-width:900px){.menu-overlay{top:88px;right:4vw;left:4vw;align-items:center}}
   /* flecha amarilla que recorre la página */
   .side-arrow{position:fixed;right:26px;top:0;z-index:40;pointer-events:none;transition:opacity .3s}
   .side-arrow svg{width:46px;height:66px}
@@ -96,7 +98,16 @@
 
   /* ---------- IMPACTO ---------- */
   .impacto{background:var(--teal);color:#fff;position:relative;overflow:hidden}
-  .impacto::after{content:"";position:absolute;right:-140px;bottom:-140px;width:420px;height:420px;border:60px solid rgba(255,255,255,.08);border-radius:50%}
+  .impacto::after{content:"";position:absolute;right:-140px;bottom:-140px;width:420px;height:420px;border:60px solid rgba(255,255,255,.08);border-radius:50%;animation:breathe 7s ease-in-out infinite}
+  .impacto::before{content:"";position:absolute;left:-90px;top:-90px;width:260px;height:260px;border:40px solid rgba(242,233,39,.14);border-radius:50%;animation:breathe 9s ease-in-out 1.5s infinite}
+  @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.14)}}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  .mini-stats .cell{animation:floaty 5.5s ease-in-out infinite}
+  .mini-stats .cell:nth-child(2){animation-delay:.7s}
+  .mini-stats .cell:nth-child(3){animation-delay:1.4s}
+  .mini-stats .cell:nth-child(4){animation-delay:2.1s}
+  .mini-stats .cell:nth-child(5){animation-delay:2.8s}
+  .impacto .kicker{animation:floaty 4.5s ease-in-out infinite}
   .impacto .kicker{background:var(--yellow);color:var(--ink)}
   .impacto h2{color:#fff}
   .big-stats{display:flex;gap:5vw;flex-wrap:wrap;margin:44px 0 34px}
@@ -111,10 +122,11 @@
   /* ---------- COMO ---------- */
   .como{background:var(--teal-soft)}
   .cards3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:26px;margin-top:44px}
-  .card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:0 14px 40px rgba(0,0,0,.08);transition:transform .2s ease}
-  .card:hover{transform:translateY(-6px)}
+  .card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:0 14px 40px rgba(0,0,0,.08);transition:transform .3s ease, box-shadow .3s ease}
+  .card:hover{transform:translateY(-12px) scale(1.03);box-shadow:0 30px 70px rgba(0,0,0,.18);z-index:2}
   .card .ph{height:200px;overflow:hidden}
-  .card .ph img{width:100%;height:100%;object-fit:cover}
+  .card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+  .card:hover .ph img{transform:scale(1.09)}
   .card .body{padding:24px 26px 30px}
   .card h3{font-size:1.25rem;margin-bottom:8px;color:var(--teal-dark)}
   .card p{font-size:.93rem;font-weight:300;line-height:1.6}
@@ -133,10 +145,11 @@
   /* ---------- PROYECTOS ---------- */
   .proyectos{background:linear-gradient(180deg,#fff 0%,var(--teal-soft) 100%)}
   .pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px;margin-top:44px}
-  .pcard{border-radius:var(--radius);overflow:hidden;color:#fff;display:flex;flex-direction:column;box-shadow:0 14px 40px rgba(0,0,0,.10);transition:transform .2s ease}
-  .pcard:hover{transform:translateY(-6px)}
-  .pcard .ph{height:210px}
-  .pcard .ph img{width:100%;height:100%;object-fit:cover}
+  .pcard{border-radius:var(--radius);overflow:hidden;color:#fff;display:flex;flex-direction:column;box-shadow:0 14px 40px rgba(0,0,0,.10);transition:transform .3s ease, box-shadow .3s ease}
+  .pcard:hover{transform:translateY(-12px) scale(1.03);box-shadow:0 30px 70px rgba(0,0,0,.22);z-index:2}
+  .pcard .ph{height:210px;overflow:hidden}
+  .pcard .ph img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+  .pcard:hover .ph img{transform:scale(1.09)}
   .pcard .body{padding:22px 24px 26px;flex:1}
   .pcard h3{font-size:1.35rem;margin-bottom:6px}
   .pcard .aliado{font-size:.8rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;opacity:.85;margin-bottom:10px}
@@ -217,6 +230,7 @@
   </div>
 </nav>
 
+<div class="menu-backdrop" onclick="document.body.classList.remove('menu-open')"></div>
 <div class="menu-overlay" onclick="if(event.target.tagName==='A'||event.target===this)document.body.classList.remove('menu-open')">
   <img class="m-logo" src="assets/logo.png" alt="">
   <a href="#somos">Quiénes somos</a>
@@ -494,9 +508,11 @@
   // animated counters
   const fmt = n => n.toLocaleString('es-EC');
   const cio = new IntersectionObserver(es => es.forEach(e => {
-    if (!e.isIntersecting) return;
-    cio.unobserve(e.target);
-    const el = e.target, target = +el.dataset.count, t0 = performance.now(), dur = 1600;
+    const el = e.target;
+    if (!e.isIntersecting) { el._done = false; el.textContent = '0'; return; }
+    if (el._done) return;
+    el._done = true;
+    const target = +el.dataset.count, t0 = performance.now(), dur = 1600;
     const tick = t => {
       const p = Math.min((t - t0) / dur, 1);
       el.textContent = fmt(Math.round(target * (1 - Math.pow(1 - p, 3))));
