@@ -35,17 +35,11 @@
   .lead{font-size:1.1rem;font-weight:300;max-width:640px;line-height:1.7}
 
   /* ---------- NAV ---------- */
-  nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:flex-start;justify-content:space-between;padding:24px 4vw;background:transparent;transition:padding .35s ease}
-  nav.scrolled{padding:16px 4vw}
-  nav .logo{display:inline-flex;align-items:center;border-radius:24px;padding:0;background:transparent;box-shadow:none;transition:background .35s ease, padding .35s ease, box-shadow .35s ease}
-  nav .logo img{height:140px;transition:height .35s ease, filter .35s ease;filter:drop-shadow(0 0 10px rgba(255,255,255,.95)) drop-shadow(0 6px 28px rgba(255,255,255,.85))}
-  nav.scrolled .logo{background:rgba(255,255,255,.94);padding:8px 18px;box-shadow:0 10px 30px rgba(0,0,0,.14);backdrop-filter:blur(8px)}
-  nav.scrolled .logo img{height:58px;filter:none}
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:14px 4vw;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(0,0,0,.06)}
+  nav .logo img{height:72px}
   nav .nav-right{display:flex;align-items:center;gap:14px}
-  .menu-btn{width:54px;height:54px;border-radius:50%;background:var(--teal);color:#fff;border:none;cursor:pointer;font-size:2rem;line-height:1;display:flex;align-items:center;justify-content:center;transition:transform .3s ease, background .2s ease;z-index:70;box-shadow:0 10px 30px rgba(0,0,0,.16)}
+  .menu-btn{width:54px;height:54px;border-radius:50%;background:var(--teal);color:#fff;border:none;cursor:pointer;font-size:2rem;line-height:1;display:flex;align-items:center;justify-content:center;transition:transform .3s ease, background .2s ease;z-index:70}
   .menu-btn:hover{background:var(--teal-dark)}
-  nav.scrolled .menu-btn{background:#fff;color:var(--teal)}
-  nav.scrolled .menu-btn:hover{background:var(--teal);color:#fff}
   .menu-btn span{display:block;transition:transform .3s ease;font-weight:300;margin-top:-4px}
   body.menu-open .menu-btn{background:var(--yellow);color:var(--ink)}
   body.menu-open .menu-btn span{transform:rotate(45deg)}
@@ -60,24 +54,11 @@
   .menu-overlay a:nth-child(2){transition-delay:.04s}.menu-overlay a:nth-child(3){transition-delay:.08s}.menu-overlay a:nth-child(4){transition-delay:.12s}.menu-overlay a:nth-child(5){transition-delay:.16s}.menu-overlay a:nth-child(6){transition-delay:.2s}
   .menu-overlay .m-logo{height:52px;margin-bottom:12px;opacity:0;transition:opacity .35s ease;filter:brightness(0) invert(1)}
   body.menu-open .menu-overlay .m-logo{opacity:1}
-  .menu-overlay .m-extra{display:flex;align-items:center;gap:16px;margin-top:20px;padding-top:18px;border-top:1px solid rgba(255,255,255,.25);width:100%}
-  .menu-overlay .m-extra .lang{color:rgba(255,255,255,.85);margin-left:0}
   @media(max-width:900px){.menu-overlay{top:88px;right:4vw;left:4vw;align-items:center}}
   /* flecha amarilla que recorre la página */
   .side-arrow{position:fixed;right:26px;top:0;z-index:40;pointer-events:none;transition:opacity .3s}
   .side-arrow svg{width:46px;height:66px}
-  @media(max-width:900px){nav .logo img{height:88px}nav.scrolled .logo img{height:46px}.side-arrow{display:none}}
-  /* cursor personalizado (solo desktop con mouse) */
-  .cursor-dot{display:none}
-  @media (hover:hover) and (pointer:fine){
-    .cursor-dot{display:block;position:fixed;top:0;left:0;width:12px;height:12px;border-radius:50%;background:var(--teal);pointer-events:none;z-index:100;transform:translate(-50%,-50%);transition:width .25s ease,height .25s ease,background .25s ease;mix-blend-mode:multiply}
-    .cursor-dot.big{width:46px;height:46px;background:rgba(18,165,180,.35)}
-  }
-  @media (prefers-reduced-motion:reduce){
-    *{animation:none!important;transition:none!important}
-    .rv{opacity:1;transform:none}
-    .cursor-dot{display:none}
-  }
+  @media(max-width:900px){nav .logo img{height:56px}.side-arrow{display:none}}
   .btn{display:inline-block;background:var(--teal);color:#fff;font-weight:600;padding:12px 26px;border-radius:999px;transition:transform .15s ease, background .15s ease;border:none;cursor:pointer;font-family:inherit;font-size:1rem}
   .btn:hover{background:var(--teal-dark);transform:translateY(-2px)}
   .btn.ghost{background:transparent;color:var(--teal);box-shadow:inset 0 0 0 2px var(--teal)}
@@ -89,17 +70,14 @@
   @media(max-width:900px){nav ul{display:none}}
 
   /* ---------- HERO ---------- */
-  header.hero{min-height:100vh;display:flex;align-items:center;padding:210px 6vw 80px;position:relative;overflow:hidden;background:var(--white)}
+  header.hero{min-height:100vh;display:flex;align-items:center;padding:140px 6vw 80px;position:relative;overflow:hidden;background:var(--white)}
   .hero-media{position:absolute;inset:0;z-index:0}
   .hero-media video{width:100%;height:100%;object-fit:cover}
   .hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg, rgba(255,255,255,.96) 0%, rgba(255,255,255,.88) 34%, rgba(255,255,255,.35) 62%, rgba(255,255,255,.05) 100%)}
   .hero-tint{position:absolute;inset:0;background:var(--teal);opacity:0;z-index:0;pointer-events:none}
   .hero-content{position:relative;z-index:1;max-width:640px}
-  .hero h1{font-size:clamp(3rem,7.6vw,5.8rem);line-height:.98;letter-spacing:-.015em;color:var(--ink);text-wrap:balance}
-  .hero h1 .teal{color:var(--teal);position:relative;display:inline-block}
-  .hero h1 .teal svg.underline{position:absolute;left:0;bottom:-.18em;width:100%;height:.28em;overflow:visible}
-  .hero h1 .teal svg.underline path{stroke-dasharray:100;stroke-dashoffset:100;animation:draw 1s ease .8s forwards}
-  @keyframes draw{to{stroke-dashoffset:0}}
+  .hero h1{font-size:clamp(2.6rem,6vw,4.6rem);line-height:1.02;color:var(--ink)}
+  .hero h1 .teal{color:var(--teal)}
   .hero p{margin:26px 0 34px;font-size:1.15rem;font-weight:400;max-width:520px;line-height:1.7}
   .hero .cta-row{display:flex;gap:14px;flex-wrap:wrap}
   .hero .bubble{display:inline-block;background:var(--yellow);font-family:'Baloo 2';font-weight:700;font-size:1.05rem;padding:8px 20px;border-radius:24px 24px 24px 4px;transform:rotate(-3deg);box-shadow:0 6px 18px rgba(0,0,0,.10);margin-bottom:22px}
@@ -107,14 +85,13 @@
   .scroll-hint svg{width:56px;height:80px}
   @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,14px)}}
   @media(max-width:900px){
-    header.hero{padding-top:150px}
+    header.hero{padding-top:120px}
     .hero-media::after{background:linear-gradient(180deg, rgba(255,255,255,.94) 0%, rgba(255,255,255,.82) 55%, rgba(255,255,255,.45) 100%)}
   }
 
   /* ---------- QUIENES SOMOS ---------- */
   .somos{background:var(--white)}
   .somos .wrap{display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:center}
-  .somos .wrap:last-child{display:block}
   .somos blockquote{font-family:'Baloo 2';font-size:clamp(1.4rem,2.6vw,2rem);line-height:1.35;color:var(--teal-dark);border-left:6px solid var(--yellow);padding-left:24px;margin-top:26px}
   .somos .pic{border-radius:var(--radius);overflow:hidden;box-shadow:0 24px 60px rgba(18,165,180,.25)}
   @media(max-width:900px){.somos .wrap{grid-template-columns:1fr}}
@@ -133,15 +110,10 @@
   .impacto .kicker{animation:floaty 4.5s ease-in-out infinite}
   .impacto .kicker{background:var(--yellow);color:var(--ink)}
   .impacto h2{color:#fff}
-  .impacto-top{display:grid;grid-template-columns:1.02fr .98fr;gap:5vw;align-items:center;position:relative;z-index:1}
-  .impacto .mapa{border-radius:var(--radius);overflow:hidden;box-shadow:0 26px 70px rgba(0,0,0,.28)}
-  .impacto .mapa video{width:100%;display:block}
-  .impacto .mapa-cap{margin-top:14px;font-size:.85rem;font-weight:300;opacity:.85;text-align:center}
-  @media(max-width:900px){.impacto-top{grid-template-columns:1fr;gap:38px}}
-  .big-stats{display:flex;gap:5vw;flex-wrap:wrap;margin:36px 0 0}
+  .big-stats{display:flex;gap:5vw;flex-wrap:wrap;margin:44px 0 34px}
   .big-stats .stat .n{font-family:'Baloo 2';font-weight:800;font-size:clamp(3rem,7vw,5.4rem);line-height:1}
   .big-stats .stat .l{font-weight:300;font-size:1.05rem;opacity:.9;margin-top:6px}
-  .mini-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;position:relative;z-index:1;margin-top:52px}
+  .mini-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;position:relative;z-index:1}
   .mini-stats .cell{background:rgba(255,255,255,.12);border-radius:20px;padding:20px 18px;text-align:center}
   .mini-stats .n{font-family:'Baloo 2';font-weight:700;font-size:1.9rem}
   .mini-stats .l{font-size:.85rem;font-weight:300;opacity:.9}
@@ -160,6 +132,7 @@
   .card p{font-size:.93rem;font-weight:300;line-height:1.6}
 
   /* ---------- TEMAS ---------- */
+  .temas{background:#fff}
   .chips{display:flex;flex-wrap:wrap;gap:16px;margin-top:38px}
   .chip{font-family:'Baloo 2';font-weight:600;font-size:1.05rem;padding:16px 28px;border-radius:999px}
   .chip:nth-child(6n+1){background:var(--teal-soft);color:var(--teal-dark)}
@@ -249,27 +222,23 @@
 <body>
 
 <nav>
-  <a class="logo" href="#inicio"><img src="assets/logo.png" alt="LAB-XXI"></a>
+  <a class="logo" href="#inicio"><img src="https://jeycee510.github.io/maqueta-labxxi/assets/logo.png" alt="LAB-XXI"></a>
   <div class="nav-right">
+    <a class="btn yellow" href="#contacto">Súmate</a>
+    <span class="lang">ES | EN</span>
     <button class="menu-btn" aria-label="Menú" onclick="document.body.classList.toggle('menu-open')"><span>+</span></button>
   </div>
 </nav>
 
 <div class="menu-backdrop" onclick="document.body.classList.remove('menu-open')"></div>
 <div class="menu-overlay" onclick="if(event.target.tagName==='A'||event.target===this)document.body.classList.remove('menu-open')">
-  <img class="m-logo" src="assets/logo.png" alt="">
+  <img class="m-logo" src="https://jeycee510.github.io/maqueta-labxxi/assets/logo.png" alt="">
   <a href="#somos">Quiénes somos</a>
   <a href="#impacto">Impacto</a>
   <a href="#proyectos">Proyectos</a>
   <a href="#aliados">Aliados</a>
   <a href="#contacto">Contacto</a>
-  <div class="m-extra">
-    <a class="btn yellow" href="#contacto">Súmate</a>
-    <span class="lang">ES | EN</span>
-  </div>
 </div>
-
-<div class="cursor-dot" id="cursorDot"></div>
 
 <div class="side-arrow" id="sideArrow">
   <svg viewBox="0 0 46 66" fill="none"><path d="M23 4 V50 M8 38 L23 56 L38 38" stroke="#F2E927" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -277,14 +246,14 @@
 
 <header class="hero" id="inicio">
   <div class="hero-media">
-    <video autoplay muted loop playsinline poster="assets/hero-manos-poster.jpg">
-      <source src="assets/hero-manos.mp4" type="video/mp4">
+    <video autoplay muted loop playsinline poster="https://jeycee510.github.io/maqueta-labxxi/assets/hero-manos-poster.jpg">
+      <source src="https://jeycee510.github.io/maqueta-labxxi/assets/hero-manos.mp4" type="video/mp4">
     </video>
   </div>
   <div class="hero-tint" id="heroTint"></div>
   <div class="hero-content">
     <span class="bubble">¡Laboratorio de innovación social!</span>
-    <h1>Hacemos que pasen <span class="teal">cosas buenas<svg class="underline" viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4 16 C 70 22, 150 6, 296 13" fill="none" stroke="#F2E927" stroke-width="10" stroke-linecap="round" pathLength="100"/></svg></span></h1>
+    <h1>Hacemos que pasen <span class="teal">cosas buenas</span></h1>
     <p>Co-diseñamos e implementamos soluciones para desarrollar el potencial de las personas, empresas y comunidades en Ecuador y la región.</p>
     <div class="cta-row">
       <a class="btn" href="#proyectos">Conoce nuestros proyectos</a>
@@ -304,39 +273,17 @@
       <p class="lead">Co-diseñamos soluciones junto a comunidades, empresas y cooperación internacional para desarrollar habilidades socioemocionales, emprendimiento y bienestar en todo el Ecuador.</p>
       <blockquote>“Las personas son el motor del cambio.”</blockquote>
     </div>
-    <div class="pic rv"><img src="assets/edu-transforma.jpg" alt="Estudiantes trabajando en un huerto comunitario"></div>
-  </div>
-  <div class="wrap">
-    <div class="chips rv" style="margin-top:64px">
-      <span class="chip">Habilidades socioemocionales y desarrollo humano</span>
-      <span class="chip">Bienestar adolescente y juvenil</span>
-      <span class="chip">Comunidades y cohesión social</span>
-      <span class="chip">Empresas con enfoque humano</span>
-      <span class="chip">Emprendimiento e innovación</span>
-      <span class="chip">Educación financiera</span>
-    </div>
+    <div class="pic rv"><img src="https://jeycee510.github.io/maqueta-labxxi/assets/edu-transforma.jpg" alt="Estudiantes trabajando en un huerto comunitario"></div>
   </div>
 </section>
 
 <section class="impacto" id="impacto">
   <div class="wrap">
-    <div class="impacto-top">
-      <div>
-        <span class="kicker">Nuestro impacto en 2025</span>
-        <h2>Llegamos lejos, juntos</h2>
-        <div class="big-stats">
-          <div class="stat rv"><div class="n" data-count="52283">0</div><div class="l">personas que se reconocen<br>como agentes de cambio</div></div>
-          <div class="stat rv"><div class="n" data-count="21">0</div><div class="l">provincias<br>del Ecuador</div></div>
-        </div>
-      </div>
-      <div class="rv">
-        <div class="mapa">
-          <video autoplay muted loop playsinline poster="assets/mapa-ecuador-poster.jpg">
-            <source src="assets/mapa-ecuador.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="mapa-cap">Ecuador, encendido de norte a sur.</div>
-      </div>
+    <span class="kicker">Nuestro impacto en 2025</span>
+    <h2>Llegamos lejos, juntos</h2>
+    <div class="big-stats">
+      <div class="stat rv"><div class="n" data-count="52283">0</div><div class="l">personas que se reconocen<br>como agentes de cambio</div></div>
+      <div class="stat rv"><div class="n" data-count="21">0</div><div class="l">provincias<br>del Ecuador</div></div>
     </div>
     <div class="mini-stats">
       <div class="cell rv"><div class="n" data-count="42474">0</div><div class="l">estudiantes</div></div>
@@ -354,17 +301,32 @@
     <h2>Tres caminos, un mismo propósito</h2>
     <div class="cards3">
       <div class="card rv">
-        <div class="ph"><img src="assets/como-coop.jpg" alt="Docente acompañando a estudiantes"></div>
+        <div class="ph"><img src="https://jeycee510.github.io/maqueta-labxxi/assets/como-coop.jpg" alt="Docente acompañando a estudiantes"></div>
         <div class="body"><h3>Proyectos de cooperación internacional</h3><p>Co-diseñamos soluciones en las que las personas son el motor del cambio.</p></div>
       </div>
       <div class="card rv">
-        <div class="ph"><img src="assets/como-rse.jpg" alt="Reconocimiento a emprendedora junto a empresa aliada"></div>
+        <div class="ph"><img src="https://jeycee510.github.io/maqueta-labxxi/assets/como-rse.jpg" alt="Reconocimiento a emprendedora junto a empresa aliada"></div>
         <div class="body"><h3>Proyectos de valor compartido (RSE)</h3><p>Somos el puente entre las empresas y la transformación social.</p></div>
       </div>
       <div class="card rv">
-        <div class="ph"><img src="assets/como-empresas.jpg" alt="Actividad de formación en equipo"></div>
+        <div class="ph"><img src="https://jeycee510.github.io/maqueta-labxxi/assets/como-empresas.jpg" alt="Actividad de formación en equipo"></div>
         <div class="body"><h3>Empresas del siglo XXI</h3><p>Formamos equipos en habilidades socioemocionales.</p></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="temas">
+  <div class="wrap">
+    <span class="kicker">Lo que nos mueve</span>
+    <h2>Nuestras líneas de acción</h2>
+    <div class="chips rv">
+      <span class="chip">Habilidades socioemocionales y desarrollo humano</span>
+      <span class="chip">Bienestar adolescente y juvenil</span>
+      <span class="chip">Comunidades y cohesión social</span>
+      <span class="chip">Empresas con enfoque humano</span>
+      <span class="chip">Emprendimiento e innovación</span>
+      <span class="chip">Educación financiera</span>
     </div>
   </div>
 </section>
@@ -375,7 +337,7 @@
     <h2>Soluciones que nacen con la gente</h2>
     <div class="pgrid">
       <div class="pcard c-blue rv">
-        <div class="ph"><img src="assets/proy-comunidades.jpg" alt="Adolescente participante de Comunidades Protectoras"></div>
+        <div class="ph"><img src="https://jeycee510.github.io/maqueta-labxxi/assets/proy-comunidades.jpg" alt="Adolescente participante de Comunidades Protectoras"></div>
         <div class="body">
           <h3>Comunidades Protectoras</h3>
           <div class="aliado">Aliado: UNICEF</div>
@@ -384,7 +346,7 @@
         </div>
       </div>
       <div class="pcard c-lila rv">
-        <div class="ph"><img src="assets/proy-alzatuvoz.jpg" alt="Joven vocera del proyecto Alza Tu Voz"></div>
+        <div class="ph"><img src="https://jeycee510.github.io/maqueta-labxxi/assets/proy-alzatuvoz.jpg" alt="Joven vocera del proyecto Alza Tu Voz"></div>
         <div class="body">
           <h3>Alza Tu Voz</h3>
           <div class="aliado">Aliado: Fondation Botnar (Suiza)</div>
@@ -393,7 +355,7 @@
         </div>
       </div>
       <div class="pcard c-green rv">
-        <div class="ph"><img src="assets/proy-profuturo.jpg" alt="Estudiantes con el Aula Digital Móvil de ProFuturo"></div>
+        <div class="ph"><img src="https://jeycee510.github.io/maqueta-labxxi/assets/proy-profuturo.jpg" alt="Estudiantes con el Aula Digital Móvil de ProFuturo"></div>
         <div class="body">
           <h3>ProFuturo</h3>
           <div class="aliado">Aliado: Fundación Telefónica Movistar</div>
@@ -402,7 +364,7 @@
         </div>
       </div>
       <div class="pcard c-teal rv">
-        <div class="ph"><img src="assets/proy-tejiendo.jpg" alt="Participantes de Tejiendo Futuro con su certificado"></div>
+        <div class="ph"><img src="https://jeycee510.github.io/maqueta-labxxi/assets/proy-tejiendo.jpg" alt="Participantes de Tejiendo Futuro con su certificado"></div>
         <div class="body">
           <h3>Tejiendo Futuro</h3>
           <div class="aliado">Aliado: Corporación Favorita · Fundación Favorita</div>
@@ -411,7 +373,7 @@
         </div>
       </div>
       <div class="pcard c-coral rv">
-        <div class="ph"><img src="assets/proy-gobernanza.jpg" alt="Grupo de jóvenes de la Escuela de Gobernanza"></div>
+        <div class="ph"><img src="https://jeycee510.github.io/maqueta-labxxi/assets/proy-gobernanza.jpg" alt="Grupo de jóvenes de la Escuela de Gobernanza"></div>
         <div class="body">
           <h3>Escuela de Gobernanza</h3>
           <div class="aliado">Aliados: Fuegos · Hivos · Futuros Urbanos</div>
@@ -420,7 +382,7 @@
         </div>
       </div>
       <div class="pcard c-yellow rv">
-        <div class="ph"><img src="assets/proy-familias.jpg" alt="Emprendedora de Familias Emprendedoras con sus certificados"></div>
+        <div class="ph"><img src="https://jeycee510.github.io/maqueta-labxxi/assets/proy-familias.jpg" alt="Emprendedora de Familias Emprendedoras con sus certificados"></div>
         <div class="body">
           <h3>Familias Emprendedoras</h3>
           <div class="aliado">Aliado: Novacero</div>
@@ -435,15 +397,15 @@
       <p class="lead">Transformamos los entornos escolares junto a docentes, estudiantes y voluntarios corporativos.</p>
       <div class="cards3">
         <div class="card rv">
-          <div class="ph"><img src="assets/edu-transforma.jpg" alt="Huerto escolar del concurso Transforma Tu Cole"></div>
+          <div class="ph"><img src="https://jeycee510.github.io/maqueta-labxxi/assets/edu-transforma.jpg" alt="Huerto escolar del concurso Transforma Tu Cole"></div>
           <div class="body"><h3>Concurso “Transforma Tu Cole”</h3><p>Proyectos creados entre docentes y estudiantes para mejorar sus entornos escolares: huertos comunitarios, troles en desuso convertidos en salas audiovisuales, urbanismo táctico y más.</p></div>
         </div>
         <div class="card rv">
-          <div class="ph"><img src="assets/edu-colegios.jpg" alt="Mentoría de voluntarios corporativos en Colegios XXI"></div>
+          <div class="ph"><img src="https://jeycee510.github.io/maqueta-labxxi/assets/edu-colegios.jpg" alt="Mentoría de voluntarios corporativos en Colegios XXI"></div>
           <div class="body"><h3>Colegios XXI</h3><p>Formación docente con voluntariado corporativo: equipos de empresas privadas se convierten en mentores de habilidades socioemocionales y de emprendimiento para colegios fiscales y particulares.</p></div>
         </div>
         <div class="card rv">
-          <div class="ph"><img src="assets/edu-comunidad.jpg" alt="Jóvenes participantes de Comunidad XXI"></div>
+          <div class="ph"><img src="https://jeycee510.github.io/maqueta-labxxi/assets/edu-comunidad.jpg" alt="Jóvenes participantes de Comunidad XXI"></div>
           <div class="body"><h3>Comunidad XXI</h3><p>Fortalece habilidades socioemocionales y de empleabilidad en jóvenes y adolescentes junto a voluntarios de Banco Internacional en Quito y Guayaquil.</p></div>
         </div>
       </div>
@@ -453,7 +415,7 @@
 
 <section class="inter">
   <div class="wrap">
-    <div class="pic rv"><img src="assets/segundo-vuelo.jpg" alt="Artesana bordadora del proyecto Segundo Vuelo Perú"></div>
+    <div class="pic rv"><img src="https://jeycee510.github.io/maqueta-labxxi/assets/segundo-vuelo.jpg" alt="Artesana bordadora del proyecto Segundo Vuelo Perú"></div>
     <div class="rv">
       <span class="kicker">Impacto internacional</span>
       <h2 style="color:#fff">Segundo Vuelo · Perú</h2>
@@ -498,7 +460,7 @@
     <span class="kicker">Aliados</span>
     <h2>Nuestro ecosistema de impacto</h2>
     <p class="lead" style="margin:0 auto">UNICEF, Fondation Botnar, Fundación Telefónica Movistar, Ministerio de Educación, UNESCO, GIZ, Plan International, Corporación Favorita, Banco Internacional, Novacero y muchos más.</p>
-    <div class="panel rv"><img src="assets/aliados.jpg" alt="Logos de los aliados de LAB-XXI"></div>
+    <div class="panel rv"><img src="https://jeycee510.github.io/maqueta-labxxi/assets/aliados.jpg" alt="Logos de los aliados de LAB-XXI"></div>
   </div>
 </section>
 
@@ -564,7 +526,6 @@
   const tint = document.getElementById('heroTint');
   const arrow = document.getElementById('sideArrow');
   const heroEl = document.querySelector('header.hero');
-  const navEl = document.querySelector('nav');
   const onScroll = () => {
     const y = window.scrollY, hh = heroEl.offsetHeight;
     tint.style.opacity = Math.min(1, y / (hh * 0.85)) * 0.96;
@@ -572,28 +533,9 @@
     const p = max > 0 ? y / max : 0;
     arrow.style.top = (8 + p * (innerHeight - 120)) + 'px';
     arrow.style.opacity = (y < hh * 0.4 || p > 0.96) ? 0 : 1;
-    // el logo siempre visible: se compacta sobre una pastilla blanca al bajar
-    navEl.classList.toggle('scrolled', y > 120);
   };
   addEventListener('scroll', onScroll, {passive: true});
   onScroll();
-
-  // cursor personalizado con seguimiento suave (solo desktop)
-  if (matchMedia('(hover:hover) and (pointer:fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const dot = document.getElementById('cursorDot');
-    let tx = -100, ty = -100, cx = -100, cy = -100;
-    addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; }, {passive: true});
-    const follow = () => {
-      cx += (tx - cx) * .22; cy += (ty - cy) * .22;
-      dot.style.transform = `translate(${cx}px,${cy}px) translate(-50%,-50%)`;
-      requestAnimationFrame(follow);
-    };
-    follow();
-    document.querySelectorAll('a, button, label, .card, .pcard').forEach(el => {
-      el.addEventListener('mouseenter', () => dot.classList.add('big'));
-      el.addEventListener('mouseleave', () => dot.classList.remove('big'));
-    });
-  }
 </script>
 </body>
 </html>
