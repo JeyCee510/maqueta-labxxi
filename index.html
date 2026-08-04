@@ -38,7 +38,7 @@
   nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:flex-start;justify-content:space-between;padding:24px 4vw;background:transparent;transition:transform .4s ease}
   nav.nav-hidden{transform:translateY(-140%)}
   body.menu-open nav{transform:none}
-  nav .logo img{height:76px;filter:drop-shadow(0 0 10px rgba(255,255,255,.95)) drop-shadow(0 6px 28px rgba(255,255,255,.85))}
+  nav .logo img{height:104px;filter:drop-shadow(0 0 10px rgba(255,255,255,.95)) drop-shadow(0 6px 28px rgba(255,255,255,.85))}
   nav .nav-right{display:flex;align-items:center;gap:14px}
   .menu-btn{width:54px;height:54px;border-radius:50%;background:var(--teal);color:#fff;border:none;cursor:pointer;font-size:2rem;line-height:1;display:flex;align-items:center;justify-content:center;transition:transform .3s ease, background .2s ease;z-index:70;box-shadow:0 10px 30px rgba(0,0,0,.16)}
   .menu-btn:hover{background:var(--teal-dark)}
@@ -62,7 +62,18 @@
   /* flecha amarilla que recorre la página */
   .side-arrow{position:fixed;right:26px;top:0;z-index:40;pointer-events:none;transition:opacity .3s}
   .side-arrow svg{width:46px;height:66px}
-  @media(max-width:900px){nav .logo img{height:56px}.side-arrow{display:none}}
+  @media(max-width:900px){nav .logo img{height:68px}.side-arrow{display:none}}
+  /* cursor personalizado (solo desktop con mouse) */
+  .cursor-dot{display:none}
+  @media (hover:hover) and (pointer:fine){
+    .cursor-dot{display:block;position:fixed;top:0;left:0;width:12px;height:12px;border-radius:50%;background:var(--teal);pointer-events:none;z-index:100;transform:translate(-50%,-50%);transition:width .25s ease,height .25s ease,background .25s ease;mix-blend-mode:multiply}
+    .cursor-dot.big{width:46px;height:46px;background:rgba(18,165,180,.35)}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .rv{opacity:1;transform:none}
+    .cursor-dot{display:none}
+  }
   .btn{display:inline-block;background:var(--teal);color:#fff;font-weight:600;padding:12px 26px;border-radius:999px;transition:transform .15s ease, background .15s ease;border:none;cursor:pointer;font-family:inherit;font-size:1rem}
   .btn:hover{background:var(--teal-dark);transform:translateY(-2px)}
   .btn.ghost{background:transparent;color:var(--teal);box-shadow:inset 0 0 0 2px var(--teal)}
@@ -80,8 +91,11 @@
   .hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg, rgba(255,255,255,.96) 0%, rgba(255,255,255,.88) 34%, rgba(255,255,255,.35) 62%, rgba(255,255,255,.05) 100%)}
   .hero-tint{position:absolute;inset:0;background:var(--teal);opacity:0;z-index:0;pointer-events:none}
   .hero-content{position:relative;z-index:1;max-width:640px}
-  .hero h1{font-size:clamp(2.6rem,6vw,4.6rem);line-height:1.02;color:var(--ink)}
-  .hero h1 .teal{color:var(--teal)}
+  .hero h1{font-size:clamp(3rem,7.6vw,5.8rem);line-height:.98;letter-spacing:-.015em;color:var(--ink);text-wrap:balance}
+  .hero h1 .teal{color:var(--teal);position:relative;display:inline-block}
+  .hero h1 .teal svg.underline{position:absolute;left:0;bottom:-.18em;width:100%;height:.28em;overflow:visible}
+  .hero h1 .teal svg.underline path{stroke-dasharray:100;stroke-dashoffset:100;animation:draw 1s ease .8s forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
   .hero p{margin:26px 0 34px;font-size:1.15rem;font-weight:400;max-width:520px;line-height:1.7}
   .hero .cta-row{display:flex;gap:14px;flex-wrap:wrap}
   .hero .bubble{display:inline-block;background:var(--yellow);font-family:'Baloo 2';font-weight:700;font-size:1.05rem;padding:8px 20px;border-radius:24px 24px 24px 4px;transform:rotate(-3deg);box-shadow:0 6px 18px rgba(0,0,0,.10);margin-bottom:22px}
@@ -136,7 +150,6 @@
   .card p{font-size:.93rem;font-weight:300;line-height:1.6}
 
   /* ---------- TEMAS ---------- */
-  .temas{background:#fff}
   .chips{display:flex;flex-wrap:wrap;gap:16px;margin-top:38px}
   .chip{font-family:'Baloo 2';font-weight:600;font-size:1.05rem;padding:16px 28px;border-radius:999px}
   .chip:nth-child(6n+1){background:var(--teal-soft);color:var(--teal-dark)}
@@ -246,6 +259,8 @@
   </div>
 </div>
 
+<div class="cursor-dot" id="cursorDot"></div>
+
 <div class="side-arrow" id="sideArrow">
   <svg viewBox="0 0 46 66" fill="none"><path d="M23 4 V50 M8 38 L23 56 L38 38" stroke="#F2E927" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg>
 </div>
@@ -259,7 +274,7 @@
   <div class="hero-tint" id="heroTint"></div>
   <div class="hero-content">
     <span class="bubble">¡Laboratorio de innovación social!</span>
-    <h1>Hacemos que pasen <span class="teal">cosas buenas</span></h1>
+    <h1>Hacemos que pasen <span class="teal">cosas buenas<svg class="underline" viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4 16 C 70 22, 150 6, 296 13" fill="none" stroke="#F2E927" stroke-width="10" stroke-linecap="round" pathLength="100"/></svg></span></h1>
     <p>Co-diseñamos e implementamos soluciones para desarrollar el potencial de las personas, empresas y comunidades en Ecuador y la región.</p>
     <div class="cta-row">
       <a class="btn" href="#proyectos">Conoce nuestros proyectos</a>
@@ -280,6 +295,16 @@
       <blockquote>“Las personas son el motor del cambio.”</blockquote>
     </div>
     <div class="pic rv"><img src="assets/edu-transforma.jpg" alt="Estudiantes trabajando en un huerto comunitario"></div>
+  </div>
+  <div class="wrap">
+    <div class="chips rv" style="margin-top:64px">
+      <span class="chip">Habilidades socioemocionales y desarrollo humano</span>
+      <span class="chip">Bienestar adolescente y juvenil</span>
+      <span class="chip">Comunidades y cohesión social</span>
+      <span class="chip">Empresas con enfoque humano</span>
+      <span class="chip">Emprendimiento e innovación</span>
+      <span class="chip">Educación financiera</span>
+    </div>
   </div>
 </section>
 
@@ -318,21 +343,6 @@
         <div class="ph"><img src="assets/como-empresas.jpg" alt="Actividad de formación en equipo"></div>
         <div class="body"><h3>Empresas del siglo XXI</h3><p>Formamos equipos en habilidades socioemocionales.</p></div>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="temas">
-  <div class="wrap">
-    <span class="kicker">Lo que nos mueve</span>
-    <h2>Nuestras líneas de acción</h2>
-    <div class="chips rv">
-      <span class="chip">Habilidades socioemocionales y desarrollo humano</span>
-      <span class="chip">Bienestar adolescente y juvenil</span>
-      <span class="chip">Comunidades y cohesión social</span>
-      <span class="chip">Empresas con enfoque humano</span>
-      <span class="chip">Emprendimiento e innovación</span>
-      <span class="chip">Educación financiera</span>
     </div>
   </div>
 </section>
@@ -548,6 +558,23 @@
   };
   addEventListener('scroll', onScroll, {passive: true});
   onScroll();
+
+  // cursor personalizado con seguimiento suave (solo desktop)
+  if (matchMedia('(hover:hover) and (pointer:fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const dot = document.getElementById('cursorDot');
+    let tx = -100, ty = -100, cx = -100, cy = -100;
+    addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; }, {passive: true});
+    const follow = () => {
+      cx += (tx - cx) * .22; cy += (ty - cy) * .22;
+      dot.style.transform = `translate(${cx}px,${cy}px) translate(-50%,-50%)`;
+      requestAnimationFrame(follow);
+    };
+    follow();
+    document.querySelectorAll('a, button, label, .card, .pcard').forEach(el => {
+      el.addEventListener('mouseenter', () => dot.classList.add('big'));
+      el.addEventListener('mouseleave', () => dot.classList.remove('big'));
+    });
+  }
 </script>
 </body>
 </html>
