@@ -35,8 +35,10 @@
   .lead{font-size:1.1rem;font-weight:300;max-width:640px;line-height:1.7}
 
   /* ---------- NAV ---------- */
-  nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:14px 4vw;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(0,0,0,.06)}
-  nav .logo img{height:72px}
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:flex-start;justify-content:space-between;padding:24px 4vw;background:transparent;transition:transform .4s ease}
+  nav.nav-hidden{transform:translateY(-140%)}
+  body.menu-open nav{transform:none}
+  nav .logo img{height:76px;filter:drop-shadow(0 0 10px rgba(255,255,255,.95)) drop-shadow(0 6px 28px rgba(255,255,255,.85))}
   nav .nav-right{display:flex;align-items:center;gap:14px}
   .menu-btn{width:54px;height:54px;border-radius:50%;background:var(--teal);color:#fff;border:none;cursor:pointer;font-size:2rem;line-height:1;display:flex;align-items:center;justify-content:center;transition:transform .3s ease, background .2s ease;z-index:70}
   .menu-btn:hover{background:var(--teal-dark)}
@@ -54,6 +56,8 @@
   .menu-overlay a:nth-child(2){transition-delay:.04s}.menu-overlay a:nth-child(3){transition-delay:.08s}.menu-overlay a:nth-child(4){transition-delay:.12s}.menu-overlay a:nth-child(5){transition-delay:.16s}.menu-overlay a:nth-child(6){transition-delay:.2s}
   .menu-overlay .m-logo{height:52px;margin-bottom:12px;opacity:0;transition:opacity .35s ease;filter:brightness(0) invert(1)}
   body.menu-open .menu-overlay .m-logo{opacity:1}
+  .menu-overlay .m-extra{display:flex;align-items:center;gap:16px;margin-top:20px;padding-top:18px;border-top:1px solid rgba(255,255,255,.25);width:100%}
+  .menu-overlay .m-extra .lang{color:rgba(255,255,255,.85);margin-left:0}
   @media(max-width:900px){.menu-overlay{top:88px;right:4vw;left:4vw;align-items:center}}
   /* flecha amarilla que recorre la página */
   .side-arrow{position:fixed;right:26px;top:0;z-index:40;pointer-events:none;transition:opacity .3s}
@@ -224,8 +228,6 @@
 <nav>
   <a class="logo" href="#inicio"><img src="assets/logo.png" alt="LAB-XXI"></a>
   <div class="nav-right">
-    <a class="btn yellow" href="#contacto">Súmate</a>
-    <span class="lang">ES | EN</span>
     <button class="menu-btn" aria-label="Menú" onclick="document.body.classList.toggle('menu-open')"><span>+</span></button>
   </div>
 </nav>
@@ -238,6 +240,10 @@
   <a href="#proyectos">Proyectos</a>
   <a href="#aliados">Aliados</a>
   <a href="#contacto">Contacto</a>
+  <div class="m-extra">
+    <a class="btn yellow" href="#contacto">Súmate</a>
+    <span class="lang">ES | EN</span>
+  </div>
 </div>
 
 <div class="side-arrow" id="sideArrow">
@@ -526,6 +532,8 @@
   const tint = document.getElementById('heroTint');
   const arrow = document.getElementById('sideArrow');
   const heroEl = document.querySelector('header.hero');
+  const navEl = document.querySelector('nav');
+  let lastY = 0;
   const onScroll = () => {
     const y = window.scrollY, hh = heroEl.offsetHeight;
     tint.style.opacity = Math.min(1, y / (hh * 0.85)) * 0.96;
@@ -533,6 +541,10 @@
     const p = max > 0 ? y / max : 0;
     arrow.style.top = (8 + p * (innerHeight - 120)) + 'px';
     arrow.style.opacity = (y < hh * 0.4 || p > 0.96) ? 0 : 1;
+    // nav minimalista: se esconde al bajar, reaparece al subir
+    if (y > lastY + 8 && y > 260) navEl.classList.add('nav-hidden');
+    else if (y < lastY - 8 || y < 120) navEl.classList.remove('nav-hidden');
+    lastY = y;
   };
   addEventListener('scroll', onScroll, {passive: true});
   onScroll();
