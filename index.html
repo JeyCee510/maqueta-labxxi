@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LAB-XXI · Hacemos que pasen cosas buenas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#12A5B4;
+    --teal-dark:#0C7E8A;
+    --teal-soft:#E3F4F5;
+    --ink:#3A3A3A;
+    --yellow:#F2E927;
+    --lila:#B39DDB;
+    --lila-soft:#EDE7F8;
+    --blue-soft:#AEC6F0;
+    --green-soft:#8FD6A9;
+    --yellow-soft:#FFE066;
+    --white:#FFFFFF;
+    --radius:28px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Poppins',system-ui,sans-serif;color:var(--ink);background:var(--white);overflow-x:hidden}
+  h1,h2,h3,.display{font-family:'Baloo 2','Poppins',sans-serif}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  section{padding:96px 6vw}
+  .wrap{max-width:1180px;margin:0 auto}
+  .kicker{display:inline-block;background:var(--yellow);padding:6px 18px;border-radius:999px;font-weight:600;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:18px}
+  h2{font-size:clamp(1.9rem,4vw,2.8rem);line-height:1.15;margin-bottom:16px}
+  .lead{font-size:1.1rem;font-weight:300;max-width:640px;line-height:1.7}
+
+  /* ---------- NAV ---------- */
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:14px 4vw;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(0,0,0,.06)}
+  nav .logo img{height:44px}
+  nav ul{display:flex;gap:26px;list-style:none;font-size:.92rem;font-weight:500}
+  nav ul a:hover{color:var(--teal)}
+  .btn{display:inline-block;background:var(--teal);color:#fff;font-weight:600;padding:12px 26px;border-radius:999px;transition:transform .15s ease, background .15s ease;border:none;cursor:pointer;font-family:inherit;font-size:1rem}
+  .btn:hover{background:var(--teal-dark);transform:translateY(-2px)}
+  .btn.ghost{background:transparent;color:var(--teal);box-shadow:inset 0 0 0 2px var(--teal)}
+  .btn.ghost:hover{background:var(--teal-soft)}
+  .btn.yellow{background:var(--yellow);color:var(--ink)}
+  .btn.yellow:hover{background:#e5dc1d}
+  nav .btn{padding:9px 20px;font-size:.9rem}
+  .lang{font-size:.8rem;font-weight:600;color:#888;margin-left:8px}
+  @media(max-width:900px){nav ul{display:none}}
+
+  /* ---------- HERO ---------- */
+  header.hero{min-height:100vh;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:4vw;padding:140px 6vw 80px;background:
+    radial-gradient(circle at 85% 20%, rgba(18,165,180,.14), transparent 40%),
+    radial-gradient(circle at 8% 85%, rgba(242,233,39,.18), transparent 35%),
+    var(--white);position:relative;overflow:hidden}
+  .hero h1{font-size:clamp(2.6rem,6vw,4.6rem);line-height:1.02;color:var(--ink)}
+  .hero h1 .teal{color:var(--teal)}
+  .hero p{margin:26px 0 34px;font-size:1.15rem;font-weight:300;max-width:520px;line-height:1.7}
+  .hero .cta-row{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-art{position:relative;display:flex;justify-content:center}
+  .hero-art .blob{width:min(460px,80%);aspect-ratio:1;background:var(--teal);border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative}
+  .hero-art img.hands{width:78%;filter:brightness(0) invert(1);opacity:.95}
+  .hero-art .bubble{position:absolute;top:6%;right:4%;background:var(--yellow);font-family:'Baloo 2';font-weight:700;font-size:1.4rem;padding:10px 22px;border-radius:24px 24px 24px 4px;transform:rotate(6deg);box-shadow:0 6px 18px rgba(0,0,0,.12)}
+  .scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-size:1.8rem;color:var(--teal);animation:bob 1.6s infinite}
+  @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,10px)}}
+  @media(max-width:900px){header.hero{grid-template-columns:1fr;padding-top:120px}.hero-art{order:-1}.hero-art .blob{width:min(300px,70%)}}
+
+  /* ---------- QUIENES SOMOS ---------- */
+  .somos{background:var(--white)}
+  .somos .wrap{display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:center}
+  .somos blockquote{font-family:'Baloo 2';font-size:clamp(1.4rem,2.6vw,2rem);line-height:1.35;color:var(--teal-dark);border-left:6px solid var(--yellow);padding-left:24px;margin-top:26px}
+  .somos .pic{border-radius:var(--radius);overflow:hidden;box-shadow:0 24px 60px rgba(18,165,180,.25)}
+  @media(max-width:900px){.somos .wrap{grid-template-columns:1fr}}
+
+  /* ---------- IMPACTO ---------- */
+  .impacto{background:var(--teal);color:#fff;position:relative;overflow:hidden}
+  .impacto::after{content:"";position:absolute;right:-140px;bottom:-140px;width:420px;height:420px;border:60px solid rgba(255,255,255,.08);border-radius:50%}
+  .impacto .kicker{background:var(--yellow);color:var(--ink)}
+  .impacto h2{color:#fff}
+  .big-stats{display:flex;gap:5vw;flex-wrap:wrap;margin:44px 0 34px}
+  .big-stats .stat .n{font-family:'Baloo 2';font-weight:800;font-size:clamp(3rem,7vw,5.4rem);line-height:1}
+  .big-stats .stat .l{font-weight:300;font-size:1.05rem;opacity:.9;margin-top:6px}
+  .mini-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;position:relative;z-index:1}
+  .mini-stats .cell{background:rgba(255,255,255,.12);border-radius:20px;padding:20px 18px;text-align:center}
+  .mini-stats .n{font-family:'Baloo 2';font-weight:700;font-size:1.9rem}
+  .mini-stats .l{font-size:.85rem;font-weight:300;opacity:.9}
+  .impacto .note{margin-top:26px;font-size:.8rem;opacity:.75;font-weight:300}
+
+  /* ---------- COMO ---------- */
+  .como{background:var(--teal-soft)}
+  .cards3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:26px;margin-top:44px}
+  .card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:0 14px 40px rgba(0,0,0,.08);transition:transform .2s ease}
+  .card:hover{transform:translateY(-6px)}
+  .card .ph{height:200px;overflow:hidden}
+  .card .ph img{width:100%;height:100%;object-fit:cover}
+  .card .body{padding:24px 26px 30px}
+  .card h3{font-size:1.25rem;margin-bottom:8px;color:var(--teal-dark)}
+  .card p{font-size:.93rem;font-weight:300;line-height:1.6}
+
+  /* ---------- TEMAS ---------- */
+  .temas{background:#fff}
+  .chips{display:flex;flex-wrap:wrap;gap:16px;margin-top:38px}
+  .chip{font-family:'Baloo 2';font-weight:600;font-size:1.05rem;padding:16px 28px;border-radius:999px}
+  .chip:nth-child(6n+1){background:var(--teal-soft);color:var(--teal-dark)}
+  .chip:nth-child(6n+2){background:var(--lila-soft);color:#6a4fa3}
+  .chip:nth-child(6n+3){background:#FFF6C9;color:#8a7a00}
+  .chip:nth-child(6n+4){background:#E2F5E9;color:#2c7a4b}
+  .chip:nth-child(6n+5){background:#E8EFFC;color:#3c5fa8}
+  .chip:nth-child(6n+6){background:#FDEBEC;color:#b04a52}
+
+  /* ---------- PROYECTOS ---------- */
+  .proyectos{background:linear-gradient(180deg,#fff 0%,var(--teal-soft) 100%)}
+  .pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px;margin-top:44px}
+  .pcard{border-radius:var(--radius);overflow:hidden;color:#fff;display:flex;flex-direction:column;box-shadow:0 14px 40px rgba(0,0,0,.10);transition:transform .2s ease}
+  .pcard:hover{transform:translateY(-6px)}
+  .pcard .ph{height:210px}
+  .pcard .ph img{width:100%;height:100%;object-fit:cover}
+  .pcard .body{padding:22px 24px 26px;flex:1}
+  .pcard h3{font-size:1.35rem;margin-bottom:6px}
+  .pcard .aliado{font-size:.8rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;opacity:.85;margin-bottom:10px}
+  .pcard .lugar{display:inline-block;background:rgba(255,255,255,.85);color:var(--ink);font-size:.8rem;font-weight:600;padding:5px 14px;border-radius:999px;margin-bottom:12px}
+  .pcard p{font-size:.9rem;font-weight:300;line-height:1.55}
+  .pcard.c-blue{background:#8FA9E8}
+  .pcard.c-lila{background:var(--lila)}
+  .pcard.c-green{background:#63BF8B}
+  .pcard.c-yellow{background:#F0C93B}
+  .pcard.c-yellow .aliado{opacity:.7}
+  .pcard.c-teal{background:var(--teal)}
+  .pcard.c-coral{background:#E8877E}
+
+  .subblock{margin-top:70px}
+  .subblock h3.sub{font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:8px}
+  .subblock .lead{margin-bottom:34px}
+
+  /* ---------- INTERNACIONAL ---------- */
+  .inter{background:var(--ink);color:#fff}
+  .inter .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:5vw;align-items:center}
+  .inter .pic{border-radius:var(--radius);overflow:hidden}
+  .inter blockquote{font-family:'Baloo 2';font-size:clamp(1.2rem,2.4vw,1.7rem);line-height:1.45;margin:22px 0 14px}
+  .inter cite{font-style:normal;font-weight:300;opacity:.8;font-size:.95rem}
+  .inter .kicker{background:var(--yellow);color:var(--ink)}
+  @media(max-width:900px){.inter .wrap{grid-template-columns:1fr}}
+
+  /* ---------- HIGHLIGHTS ---------- */
+  .hl{background:#fff}
+  .hl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:38px}
+  .hl-item{background:var(--teal-soft);border-radius:22px;padding:24px;font-size:.95rem;font-weight:400;line-height:1.5;display:flex;gap:14px;align-items:flex-start}
+  .hl-item .dot{flex:0 0 auto;width:14px;height:14px;margin-top:5px;border-radius:50%;background:var(--teal)}
+
+  /* ---------- TESTIMONIOS ---------- */
+  .testi{background:var(--lila-soft)}
+  .tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;margin-top:40px}
+  .tcard{background:#fff;border-radius:24px;padding:28px;font-size:.95rem;font-weight:300;line-height:1.6;box-shadow:0 10px 30px rgba(0,0,0,.06);position:relative}
+  .tcard::before{content:"\201C";font-family:'Baloo 2';font-size:3rem;color:var(--teal);line-height:0;display:block;margin:18px 0 8px}
+
+  /* ---------- ALIADOS ---------- */
+  .aliados{background:#fff;text-align:center}
+  .aliados .panel{margin:40px auto 0;max-width:980px;background:#fff;border-radius:var(--radius);box-shadow:0 14px 50px rgba(0,0,0,.10);padding:26px;}
+
+  /* ---------- CONTACTO ---------- */
+  .contacto{background:var(--teal);color:#fff;position:relative;overflow:hidden}
+  .contacto::before{content:"";position:absolute;left:-120px;top:-120px;width:340px;height:340px;border:50px solid rgba(255,255,255,.08);border-radius:50%}
+  .contacto .wrap{display:grid;grid-template-columns:1fr 1fr;gap:6vw;position:relative;z-index:1}
+  .contacto h2{color:#fff}
+  .contacto .info{margin-top:26px;font-weight:300;line-height:2}
+  .contacto .info b{font-weight:600}
+  .form{background:#fff;color:var(--ink);border-radius:var(--radius);padding:34px;box-shadow:0 24px 60px rgba(0,0,0,.18)}
+  .form h3{margin-bottom:18px;color:var(--teal-dark)}
+  .roles{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+  .roles label{border:2px solid var(--teal-soft);border-radius:999px;padding:8px 16px;font-size:.85rem;font-weight:500;cursor:pointer;user-select:none}
+  .roles input{display:none}
+  .roles input:checked+span{color:var(--teal-dark);font-weight:700}
+  .roles label:has(input:checked){background:var(--teal-soft);border-color:var(--teal)}
+  .form input[type=text],.form input[type=email],.form textarea{width:100%;border:2px solid #e8e8e8;border-radius:14px;padding:12px 16px;font-family:inherit;font-size:.95rem;margin-bottom:14px;outline:none}
+  .form input:focus,.form textarea:focus{border-color:var(--teal)}
+  @media(max-width:900px){.contacto .wrap{grid-template-columns:1fr}}
+
+  footer{background:var(--ink);color:#fff;padding:34px 6vw;display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between;font-size:.85rem;font-weight:300}
+  footer .tag{font-family:'Baloo 2';font-weight:600;font-size:1rem}
+  footer .note{opacity:.55}
+
+  /* reveal on scroll */
+  .rv{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+  .rv.on{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#inicio"><img src="assets/logo.png" alt="LAB-XXI"></a>
+  <ul>
+    <li><a href="#somos">Quiénes somos</a></li>
+    <li><a href="#impacto">Impacto</a></li>
+    <li><a href="#proyectos">Proyectos</a></li>
+    <li><a href="#aliados">Aliados</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <div>
+    <a class="btn yellow" href="#contacto">Súmate</a>
+    <span class="lang">ES | EN</span>
+  </div>
+</nav>
+
+<header class="hero" id="inicio">
+  <div>
+    <h1>Hacemos que pasen <span class="teal">cosas buenas</span></h1>
+    <p>Somos el laboratorio de innovación social y educativa que co-diseña e implementa soluciones para desarrollar el potencial de las personas, empresas y comunidades en Ecuador y la región.</p>
+    <div class="cta-row">
+      <a class="btn" href="#proyectos">Conoce nuestros proyectos</a>
+      <a class="btn ghost" href="#contacto">Conecta con nosotros</a>
+    </div>
+  </div>
+  <div class="hero-art">
+    <div class="blob">
+      <img class="hands" src="assets/hands.png" alt="">
+      <div class="bubble">¡XXI!</div>
+    </div>
+  </div>
+  <div class="scroll-hint">↓</div>
+</header>
+
+<section class="somos" id="somos">
+  <div class="wrap">
+    <div class="rv">
+      <span class="kicker">Quiénes somos</span>
+      <h2>Un laboratorio donde las personas son el motor del cambio</h2>
+      <p class="lead">Co-diseñamos soluciones junto a comunidades, empresas y cooperación internacional para desarrollar habilidades socioemocionales, emprendimiento y bienestar en todo el Ecuador.</p>
+      <blockquote>“Las personas son el motor del cambio.”</blockquote>
+    </div>
+    <div class="pic rv"><img src="assets/edu-transforma.jpg" alt="Estudiantes trabajando en un huerto comunitario"></div>
+  </div>
+</section>
+
+<section class="impacto" id="impacto">
+  <div class="wrap">
+    <span class="kicker">Nuestro impacto en 2025</span>
+    <h2>Llegamos lejos, juntos</h2>
+    <div class="big-stats">
+      <div class="stat rv"><div class="n" data-count="52283">0</div><div class="l">personas que se reconocen<br>como agentes de cambio</div></div>
+      <div class="stat rv"><div class="n" data-count="21">0</div><div class="l">provincias<br>del Ecuador</div></div>
+    </div>
+    <div class="mini-stats">
+      <div class="cell rv"><div class="n" data-count="42474">0</div><div class="l">estudiantes</div></div>
+      <div class="cell rv"><div class="n" data-count="5969">0</div><div class="l">docentes</div></div>
+      <div class="cell rv"><div class="n" data-count="2283">0</div><div class="l">adolescentes</div></div>
+      <div class="cell rv"><div class="n" data-count="1232">0</div><div class="l">madres, padres y adultos</div></div>
+      <div class="cell rv"><div class="n" data-count="325">0</div><div class="l">emprendedores</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="como">
+  <div class="wrap">
+    <span class="kicker">¿Cómo lo hacemos?</span>
+    <h2>Tres caminos, un mismo propósito</h2>
+    <div class="cards3">
+      <div class="card rv">
+        <div class="ph"><img src="assets/como-coop.jpg" alt="Docente acompañando a estudiantes"></div>
+        <div class="body"><h3>Proyectos de cooperación internacional</h3><p>Co-diseñamos soluciones en las que las personas son el motor del cambio.</p></div>
+      </div>
+      <div class="card rv">
+        <div class="ph"><img src="assets/como-rse.jpg" alt="Reconocimiento a emprendedora junto a empresa aliada"></div>
+        <div class="body"><h3>Proyectos de valor compartido (RSE)</h3><p>Somos el puente entre las empresas y la transformación social.</p></div>
+      </div>
+      <div class="card rv">
+        <div class="ph"><img src="assets/como-empresas.jpg" alt="Actividad de formación en equipo"></div>
+        <div class="body"><h3>Empresas del siglo XXI</h3><p>Formamos equipos en habilidades socioemocionales.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="temas">
+  <div class="wrap">
+    <span class="kicker">Lo que nos mueve</span>
+    <h2>Nuestras líneas de acción</h2>
+    <div class="chips rv">
+      <span class="chip">Habilidades socioemocionales y desarrollo humano</span>
+      <span class="chip">Bienestar adolescente y juvenil</span>
+      <span class="chip">Comunidades y cohesión social</span>
+      <span class="chip">Empresas con enfoque humano</span>
+      <span class="chip">Emprendimiento e innovación</span>
+      <span class="chip">Educación financiera</span>
+    </div>
+  </div>
+</section>
+
+<section class="proyectos" id="proyectos">
+  <div class="wrap">
+    <span class="kicker">Conoce nuestros proyectos</span>
+    <h2>Soluciones que nacen con la gente</h2>
+    <div class="pgrid">
+      <div class="pcard c-blue rv">
+        <div class="ph"><img src="assets/proy-comunidades.jpg" alt="Adolescente participante de Comunidades Protectoras"></div>
+        <div class="body">
+          <h3>Comunidades Protectoras</h3>
+          <div class="aliado">Aliado: UNICEF</div>
+          <span class="lugar">Manta · Esmeraldas · Lago Agrio · San Lorenzo</span>
+          <p>Salud mental comunitaria y protección de derechos humanos de niños, niñas y adolescentes.</p>
+        </div>
+      </div>
+      <div class="pcard c-lila rv">
+        <div class="ph"><img src="assets/proy-alzatuvoz.jpg" alt="Joven vocera del proyecto Alza Tu Voz"></div>
+        <div class="body">
+          <h3>Alza Tu Voz</h3>
+          <div class="aliado">Aliado: Fondation Botnar (Suiza)</div>
+          <span class="lugar">Quevedo · Riobamba</span>
+          <p>Educación, incidencia, salud mental y ciudades más saludables para adolescentes.</p>
+        </div>
+      </div>
+      <div class="pcard c-green rv">
+        <div class="ph"><img src="assets/proy-profuturo.jpg" alt="Estudiantes con el Aula Digital Móvil de ProFuturo"></div>
+        <div class="body">
+          <h3>ProFuturo</h3>
+          <div class="aliado">Aliado: Fundación Telefónica Movistar</div>
+          <span class="lugar">24 provincias de Ecuador</span>
+          <p>Habilidades digitales y habilidades para la vida en el sistema educativo.</p>
+        </div>
+      </div>
+      <div class="pcard c-teal rv">
+        <div class="ph"><img src="assets/proy-tejiendo.jpg" alt="Participantes de Tejiendo Futuro con su certificado"></div>
+        <div class="body">
+          <h3>Tejiendo Futuro</h3>
+          <div class="aliado">Aliado: Corporación Favorita · Fundación Favorita</div>
+          <span class="lugar">Crucita · Quitumbe · Calderón</span>
+          <p>Salud mental comunitaria y protección de derechos humanos de niños, niñas y adolescentes.</p>
+        </div>
+      </div>
+      <div class="pcard c-coral rv">
+        <div class="ph"><img src="assets/proy-gobernanza.jpg" alt="Grupo de jóvenes de la Escuela de Gobernanza"></div>
+        <div class="body">
+          <h3>Escuela de Gobernanza</h3>
+          <div class="aliado">Aliados: Fuegos · Hivos · Futuros Urbanos</div>
+          <span class="lugar">Jama · Pedernales · San Vicente · Sucre (Manabí)</span>
+          <p>Sistemas agroalimentarios, sostenibilidad, liderazgo juvenil y saberes ancestrales.</p>
+        </div>
+      </div>
+      <div class="pcard c-yellow rv">
+        <div class="ph"><img src="assets/proy-familias.jpg" alt="Emprendedora de Familias Emprendedoras con sus certificados"></div>
+        <div class="body">
+          <h3>Familias Emprendedoras</h3>
+          <div class="aliado">Aliado: Novacero</div>
+          <span class="lugar">Guayaquil · Lasso · Quito</span>
+          <p>Emprendimiento, responsabilidad social y educación financiera.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="subblock">
+      <h3 class="sub">Innovación educativa</h3>
+      <p class="lead">Transformamos los entornos escolares junto a docentes, estudiantes y voluntarios corporativos.</p>
+      <div class="cards3">
+        <div class="card rv">
+          <div class="ph"><img src="assets/edu-transforma.jpg" alt="Huerto escolar del concurso Transforma Tu Cole"></div>
+          <div class="body"><h3>Concurso “Transforma Tu Cole”</h3><p>Proyectos creados entre docentes y estudiantes para mejorar sus entornos escolares: huertos comunitarios, troles en desuso convertidos en salas audiovisuales, urbanismo táctico y más.</p></div>
+        </div>
+        <div class="card rv">
+          <div class="ph"><img src="assets/edu-colegios.jpg" alt="Mentoría de voluntarios corporativos en Colegios XXI"></div>
+          <div class="body"><h3>Colegios XXI</h3><p>Formación docente con voluntariado corporativo: equipos de empresas privadas se convierten en mentores de habilidades socioemocionales y de emprendimiento para colegios fiscales y particulares.</p></div>
+        </div>
+        <div class="card rv">
+          <div class="ph"><img src="assets/edu-comunidad.jpg" alt="Jóvenes participantes de Comunidad XXI"></div>
+          <div class="body"><h3>Comunidad XXI</h3><p>Fortalece habilidades socioemocionales y de empleabilidad en jóvenes y adolescentes junto a voluntarios de Banco Internacional en Quito y Guayaquil.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="inter">
+  <div class="wrap">
+    <div class="pic rv"><img src="assets/segundo-vuelo.jpg" alt="Artesana bordadora del proyecto Segundo Vuelo Perú"></div>
+    <div class="rv">
+      <span class="kicker">Impacto internacional</span>
+      <h2 style="color:#fff">Segundo Vuelo · Perú</h2>
+      <p class="lead" style="color:#ddd">Un proyecto que fortaleció las habilidades de emprendimiento de mujeres bordadoras.</p>
+      <blockquote>“Yo comencé a tejer desde los seis años. El proyecto me ayudó a salir adelante. Gracias a Segundo Vuelo, ya no solo trabajamos en ferias: ahora somos conocidas.”</blockquote>
+      <cite>— Domenika, Asociación Sisan</cite>
+    </div>
+  </div>
+</section>
+
+<section class="hl">
+  <div class="wrap">
+    <span class="kicker">Highlights 2025</span>
+    <h2>Un año para celebrar</h2>
+    <div class="hl-grid">
+      <div class="hl-item rv"><span class="dot"></span>Intercambio de aprendizajes con Ghana e India</div>
+      <div class="hl-item rv"><span class="dot"></span>Representantes del programa global Healthy Cities for Adolescents en Suiza</div>
+      <div class="hl-item rv"><span class="dot"></span>Ponentes en CLIIQ y en el Summit de Innovación y Educación</div>
+      <div class="hl-item rv"><span class="dot"></span>Reconocimiento del Ministerio de Educación</div>
+      <div class="hl-item rv"><span class="dot"></span>Parte del Observatorio de Niñez y Juventud</div>
+      <div class="hl-item rv"><span class="dot"></span>Reconocimiento del GAD de Riobamba</div>
+    </div>
+  </div>
+</section>
+
+<section class="testi">
+  <div class="wrap">
+    <span class="kicker">Historias de cambio</span>
+    <h2>Lo cuentan sus protagonistas</h2>
+    <div class="tgrid">
+      <div class="tcard rv">Dejé de pedir a chulqueros con las clases de educación financiera y mi familia se comunica más.</div>
+      <div class="tcard rv">El proyecto nos ayudó a ser más empáticos con los clientes y más ordenados en las finanzas del negocio.</div>
+      <div class="tcard rv">Nos enseñaron que no había que resolver todo solos: hoy podemos sentirnos como una comunidad.</div>
+      <div class="tcard rv">Me uní al proyecto porque quería demostrar que los pueblos indígenas también pueden participar en los campos digitales y tecnológicos.</div>
+      <div class="tcard rv">La formación en empleabilidad me sirvió mucho, hoy me destaco mucho en el trabajo.</div>
+    </div>
+  </div>
+</section>
+
+<section class="aliados" id="aliados">
+  <div class="wrap">
+    <span class="kicker">Aliados</span>
+    <h2>Nuestro ecosistema de impacto</h2>
+    <p class="lead" style="margin:0 auto">UNICEF, Fondation Botnar, Fundación Telefónica Movistar, Ministerio de Educación, UNESCO, GIZ, Plan International, Corporación Favorita, Banco Internacional, Novacero y muchos más.</p>
+    <div class="panel rv"><img src="assets/aliados.jpg" alt="Logos de los aliados de LAB-XXI"></div>
+  </div>
+</section>
+
+<section class="contacto" id="contacto">
+  <div class="wrap">
+    <div>
+      <span class="kicker">Conecta con nosotros</span>
+      <h2>¿Quieres que pasen cosas buenas?</h2>
+      <p class="lead" style="color:#eafcfd">Súmate como aliado, empresa o voluntario y hagamos equipo para transformar vidas en Ecuador y la región.</p>
+      <div class="info">
+        <div><b>Correo:</b> info@lab-xxi.com</div>
+        <div><b>Teléfono:</b> (02) 3232-0493 · +593 98 252 5226</div>
+        <div><b>Instagram:</b> @lab_xxi</div>
+        <div><b>Web:</b> www.lab-xxi.com</div>
+      </div>
+    </div>
+    <form class="form" onsubmit="event.preventDefault();alert('¡Gracias! (demo de maqueta)');">
+      <h3>Cuéntanos quién eres</h3>
+      <div class="roles">
+        <label><input type="radio" name="rol" checked><span>Auspiciante</span></label>
+        <label><input type="radio" name="rol"><span>Empresa</span></label>
+        <label><input type="radio" name="rol"><span>Voluntario</span></label>
+        <label><input type="radio" name="rol"><span>Quiero explorar</span></label>
+      </div>
+      <input type="text" placeholder="Nombre" required>
+      <input type="email" placeholder="Correo electrónico" required>
+      <textarea rows="3" placeholder="¿Cómo te gustaría sumarte?"></textarea>
+      <button class="btn" type="submit">Enviar</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <span class="tag">LAB-XXI · Hacemos que pasen cosas buenas</span>
+  <span class="note">Maqueta de propuesta web · Contenido: Brochure 2026 · Sujeta a validación</span>
+</footer>
+
+<script>
+  // reveal on scroll
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
+  }), { threshold: .18 });
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+  // animated counters
+  const fmt = n => n.toLocaleString('es-EC');
+  const cio = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    cio.unobserve(e.target);
+    const el = e.target, target = +el.dataset.count, t0 = performance.now(), dur = 1600;
+    const tick = t => {
+      const p = Math.min((t - t0) / dur, 1);
+      el.textContent = fmt(Math.round(target * (1 - Math.pow(1 - p, 3))));
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }), { threshold: .6 });
+  document.querySelectorAll('[data-count]').forEach(el => cio.observe(el));
+</script>
+</body>
+</html>
