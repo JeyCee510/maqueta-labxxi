@@ -50,21 +50,22 @@
   @media(max-width:900px){nav ul{display:none}}
 
   /* ---------- HERO ---------- */
-  header.hero{min-height:100vh;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:4vw;padding:140px 6vw 80px;background:
-    radial-gradient(circle at 85% 20%, rgba(18,165,180,.14), transparent 40%),
-    radial-gradient(circle at 8% 85%, rgba(242,233,39,.18), transparent 35%),
-    var(--white);position:relative;overflow:hidden}
+  header.hero{min-height:100vh;display:flex;align-items:center;padding:140px 6vw 80px;position:relative;overflow:hidden;background:var(--white)}
+  .hero-media{position:absolute;inset:0;z-index:0}
+  .hero-media video{width:100%;height:100%;object-fit:cover}
+  .hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg, rgba(255,255,255,.96) 0%, rgba(255,255,255,.88) 34%, rgba(255,255,255,.35) 62%, rgba(255,255,255,.05) 100%)}
+  .hero-content{position:relative;z-index:1;max-width:640px}
   .hero h1{font-size:clamp(2.6rem,6vw,4.6rem);line-height:1.02;color:var(--ink)}
   .hero h1 .teal{color:var(--teal)}
-  .hero p{margin:26px 0 34px;font-size:1.15rem;font-weight:300;max-width:520px;line-height:1.7}
+  .hero p{margin:26px 0 34px;font-size:1.15rem;font-weight:400;max-width:520px;line-height:1.7}
   .hero .cta-row{display:flex;gap:14px;flex-wrap:wrap}
-  .hero-art{position:relative;display:flex;justify-content:center}
-  .hero-art .blob{width:min(460px,80%);aspect-ratio:1;background:var(--teal);border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative}
-  .hero-art img.hands{width:78%;filter:brightness(0) invert(1);opacity:.95}
-  .hero-art .bubble{position:absolute;top:6%;right:4%;background:var(--yellow);font-family:'Baloo 2';font-weight:700;font-size:1.4rem;padding:10px 22px;border-radius:24px 24px 24px 4px;transform:rotate(6deg);box-shadow:0 6px 18px rgba(0,0,0,.12)}
-  .scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-size:1.8rem;color:var(--teal);animation:bob 1.6s infinite}
+  .hero .bubble{display:inline-block;background:var(--yellow);font-family:'Baloo 2';font-weight:700;font-size:1.05rem;padding:8px 20px;border-radius:24px 24px 24px 4px;transform:rotate(-3deg);box-shadow:0 6px 18px rgba(0,0,0,.10);margin-bottom:22px}
+  .scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-size:1.8rem;color:var(--teal);animation:bob 1.6s infinite;z-index:1}
   @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,10px)}}
-  @media(max-width:900px){header.hero{grid-template-columns:1fr;padding-top:120px}.hero-art{order:-1}.hero-art .blob{width:min(300px,70%)}}
+  @media(max-width:900px){
+    header.hero{padding-top:120px}
+    .hero-media::after{background:linear-gradient(180deg, rgba(255,255,255,.94) 0%, rgba(255,255,255,.82) 55%, rgba(255,255,255,.45) 100%)}
+  }
 
   /* ---------- QUIENES SOMOS ---------- */
   .somos{background:var(--white)}
@@ -203,18 +204,18 @@
 </nav>
 
 <header class="hero" id="inicio">
-  <div>
+  <div class="hero-media">
+    <video autoplay muted loop playsinline poster="assets/hero-manos-poster.jpg">
+      <source src="assets/hero-manos.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-content">
+    <span class="bubble">¡Laboratorio de innovación social!</span>
     <h1>Hacemos que pasen <span class="teal">cosas buenas</span></h1>
-    <p>Somos el laboratorio de innovación social y educativa que co-diseña e implementa soluciones para desarrollar el potencial de las personas, empresas y comunidades en Ecuador y la región.</p>
+    <p>Co-diseñamos e implementamos soluciones para desarrollar el potencial de las personas, empresas y comunidades en Ecuador y la región.</p>
     <div class="cta-row">
       <a class="btn" href="#proyectos">Conoce nuestros proyectos</a>
       <a class="btn ghost" href="#contacto">Conecta con nosotros</a>
-    </div>
-  </div>
-  <div class="hero-art">
-    <div class="blob">
-      <img class="hands" src="assets/hands.png" alt="">
-      <div class="bubble">¡XXI!</div>
     </div>
   </div>
   <div class="scroll-hint">↓</div>
